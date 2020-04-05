@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">News App</string>
+
+    <string name="feed_fragment_name">@string/app_name</string>
+    <string name="details_fragment_name">Article Details</string>
+    <string name="browser_fragment_name">Original Article</string>
+
+    <string name="article_link_label">Full article:</string>
+</resources>
