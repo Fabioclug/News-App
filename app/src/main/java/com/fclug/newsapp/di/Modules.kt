@@ -1,5 +1,7 @@
 package com.fclug.newsapp.di
 
+import com.fclug.newsapp.data.datasource.NewsDataSource
+import com.fclug.newsapp.data.datasource.NewsDataSourceFactory
 import com.fclug.newsapp.data.repository.NewsRepository
 import com.fclug.newsapp.data.repository.Repository
 import com.fclug.newsapp.details.DetailsViewModel
@@ -11,4 +13,6 @@ val appModule = module {
     viewModel { FeedViewModel(get()) }
     single<Repository> { NewsRepository() }
     viewModel { DetailsViewModel() }
+    factory { NewsDataSource() }
+    single { NewsDataSourceFactory() }
 }

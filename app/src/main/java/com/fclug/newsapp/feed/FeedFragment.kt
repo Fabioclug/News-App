@@ -22,14 +22,13 @@ class FeedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupNewsList()
         observeNewsList()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun setupNewsList() {
@@ -37,8 +36,8 @@ class FeedFragment : Fragment() {
     }
 
     private fun observeNewsList() {
-        feedViewModel.getArticles().observe(viewLifecycleOwner, Observer {
-            (newsList.adapter as NewsAdapter).loadItems(it)
+        feedViewModel.articles.observe(viewLifecycleOwner, Observer {
+            (newsList.adapter as NewsAdapter).submitList(it)
         })
     }
 

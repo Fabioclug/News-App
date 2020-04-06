@@ -3,13 +3,16 @@ package com.fclug.newsapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fclug.newsapp.R
 import com.fclug.newsapp.model.Article
 import com.fclug.newsapp.util.loadImage
 import kotlinx.android.synthetic.main.news_list_item.view.*
 
-class NewsAdapter(private val onItemClick: (Article) -> Unit): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(private val onItemClick: (Article) -> Unit):
+    PagedListAdapter<Article, NewsAdapter.NewsViewHolder>(articleDiffCallback) {
 
     private val movieList: MutableList<Article> = mutableListOf()
 
@@ -29,14 +32,18 @@ class NewsAdapter(private val onItemClick: (Article) -> Unit): RecyclerView.Adap
         return NewsViewHolder(view)
     }
 
-    override fun getItemCount() = movieList.size
-
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(movieList[position], onItemClick)
+        getItem(position)?.let { holder.bind(it, onItemClick) }
     }
 
-    fun loadItems(articles: List<Article>) {
-        movieList.addAll(articles)
-        notifyDataSetChanged()
+    companion object {
+        private val articleDiffCallback = object: DiffUtil.ItemCallback<Article>() {
+            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean =
+                oldItem.url == newItem.url && oldItem.title == newItem.title
+
+            override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean =
+                oldItem == newItem
+
+        }
     }
 }
