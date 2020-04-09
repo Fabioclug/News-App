@@ -8,7 +8,7 @@ interface Repository {
 
     fun getTopHeadlines(
         category: String = NewsApi.DEFAULT_CATEGORY,
-        country: String = NewsApi.DEFAULT_LANGUAGE,
+        country: String,
         pageSize: Int,
         page: Int
     ): Single<ArticlesResponse>

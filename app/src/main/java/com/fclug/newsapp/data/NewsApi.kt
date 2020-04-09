@@ -9,7 +9,7 @@ interface NewsApi {
 
     companion object {
         const val URL = "http://newsapi.org/v2/"
-        const val DEFAULT_LANGUAGE = "br"
+        const val DEFAULT_COUNTRY = "br"
         const val DEFAULT_CATEGORY = "general"
     }
 

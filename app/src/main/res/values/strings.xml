@@ -4,6 +4,10 @@
     <string name="feed_fragment_name">@string/app_name</string>
     <string name="details_fragment_name">Article Details</string>
     <string name="browser_fragment_name">Original Article</string>
+    <string name="settings_fragment_name">Settings</string>
 
     <string name="article_link_label">Full article:</string>
+
+    <string name="country_options_title">Country Selection</string>
+    <string name="action_settings">Settings</string>
 </resources>

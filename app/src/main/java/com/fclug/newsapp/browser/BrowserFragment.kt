@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.fclug.newsapp.R
+import com.fclug.newsapp.util.URL_ARGUMENT
 import kotlinx.android.synthetic.main.fragment_browser.*
 
 class BrowserFragment : Fragment() {
@@ -22,7 +23,7 @@ class BrowserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {args ->
-            val url: String? = args.getString("url")
+            val url: String? = args.getString(URL_ARGUMENT)
             url?.let {
                 articleViewer.webViewClient = WebViewClient()
                 articleViewer.settings.javaScriptEnabled = true

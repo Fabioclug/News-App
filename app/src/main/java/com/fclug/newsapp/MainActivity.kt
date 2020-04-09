@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.feedFragment -> resources.getString(R.string.feed_fragment_name)
                 R.id.detailsFragment -> resources.getString(R.string.details_fragment_name)
                 R.id.browserFragment -> resources.getString(R.string.browser_fragment_name)
+                R.id.settingsFragment -> resources.getString(R.string.settings_fragment_name)
                 else -> resources.getString(R.string.app_name)
             }
         }

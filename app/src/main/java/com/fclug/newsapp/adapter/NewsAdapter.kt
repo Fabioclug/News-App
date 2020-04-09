@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.news_list_item.view.*
 class NewsAdapter(private val onItemClick: (Article) -> Unit):
     PagedListAdapter<Article, NewsAdapter.NewsViewHolder>(articleDiffCallback) {
 
-    private val movieList: MutableList<Article> = mutableListOf()
-
     class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(article: Article, onItemClick: (Article) -> Unit) {
             itemView.headline.text = article.title
