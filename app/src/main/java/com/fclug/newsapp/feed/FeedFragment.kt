@@ -1,13 +1,12 @@
 package com.fclug.newsapp.feed
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-
 import com.fclug.newsapp.R
 import com.fclug.newsapp.adapter.NewsAdapter
 import com.fclug.newsapp.model.Article
@@ -27,6 +26,9 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        button.setOnClickListener {
+            feedViewModel.updateCountry("ca")
+        }
         setupNewsList()
         observeNewsList()
     }
@@ -36,8 +38,10 @@ class FeedFragment : Fragment() {
     }
 
     private fun observeNewsList() {
-        feedViewModel.articles.observe(viewLifecycleOwner, Observer {
-            (newsList.adapter as NewsAdapter).submitList(it)
+        feedViewModel.articles.observe(viewLifecycleOwner, Observer { pagedListLiveData ->
+            pagedListLiveData.observe(viewLifecycleOwner, Observer {
+                (newsList.adapter as NewsAdapter).submitList(it)
+            })
         })
     }
 

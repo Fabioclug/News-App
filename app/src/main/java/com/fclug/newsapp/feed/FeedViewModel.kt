@@ -19,13 +19,24 @@ import org.koin.standalone.inject
 class FeedViewModel(repository: Repository): ViewModel(), KoinComponent {
 
     private val dataSourceFactory: NewsDataSourceFactory by inject()
-    val articles: LiveData<PagedList<Article>>
+    private val _articles = MutableLiveData<LiveData<PagedList<Article>>>()
+    val articles: LiveData<LiveData<PagedList<Article>>>
+        get() = _articles
 
     init {
         val pagedListConfig = PagedList.Config.Builder()
             .setPageSize(1)
             .setEnablePlaceholders(true)
             .build()
-        articles = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
+        _articles.value = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
+    }
+
+    fun updateCountry(country: String) {
+        dataSourceFactory.updateCountry(country)
+        val pagedListConfig = PagedList.Config.Builder()
+            .setPageSize(1)
+            .setEnablePlaceholders(true)
+            .build()
+        _articles.value = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
     }
 }

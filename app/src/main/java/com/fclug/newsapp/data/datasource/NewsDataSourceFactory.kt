@@ -16,4 +16,8 @@ class NewsDataSourceFactory: DataSource.Factory<Int, Article>(), KoinComponent {
     fun finalize() {
         newsDataSource.finalize()
     }
+
+    fun updateCountry(country: String) {
+        newsDataSource.updateCountry(country)
+    }
 }

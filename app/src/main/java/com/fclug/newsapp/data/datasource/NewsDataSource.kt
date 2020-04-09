@@ -12,6 +12,8 @@ import org.koin.standalone.inject
 
 class NewsDataSource: PageKeyedDataSource<Int, Article>(), KoinComponent {
 
+    private var country = "br"
+
     companion object {
         const val PAGE_SIZE = 15
     }
@@ -19,6 +21,10 @@ class NewsDataSource: PageKeyedDataSource<Int, Article>(), KoinComponent {
     private val repository: Repository by inject()
     private var totalPages = 0
     private var disposables = CompositeDisposable()
+
+    fun updateCountry(country: String) {
+        this.country = country
+    }
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -45,7 +51,7 @@ class NewsDataSource: PageKeyedDataSource<Int, Article>(), KoinComponent {
     }
 
     private fun loadNews(page: Int, callback: (List<Article>, Int) -> Unit) {
-        disposables.add(repository.getTopHeadlines(page = page, pageSize = PAGE_SIZE)
+        disposables.add(repository.getTopHeadlines(page = page, pageSize = PAGE_SIZE, country = country)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({response ->
