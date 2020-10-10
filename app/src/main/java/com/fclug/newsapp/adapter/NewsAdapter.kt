@@ -1,33 +1,31 @@
 package com.fclug.newsapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.fclug.newsapp.R
 import com.fclug.newsapp.model.Article
-import com.fclug.newsapp.util.loadImage
-import kotlinx.android.synthetic.main.news_list_item.view.*
+import com.fclug.newsapp.databinding.NewsListItemBinding
 
 class NewsAdapter(private val onItemClick: (Article) -> Unit):
     PagedListAdapter<Article, NewsAdapter.NewsViewHolder>(articleDiffCallback) {
 
-    class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(article: Article, onItemClick: (Article) -> Unit) {
-            itemView.headline.text = article.title
-            itemView.headlineImage.loadImage(article.urlToImage)
+    class NewsViewHolder(var binding: NewsListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
+        fun bind(article: Article, onItemClick: (Article) -> Unit) {
+            binding.article = article
             itemView.setOnClickListener {
                 onItemClick.invoke(article)
             }
+            binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_list_item, parent, false)
-        return NewsViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = NewsListItemBinding.inflate(layoutInflater, parent, false)
+        return NewsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

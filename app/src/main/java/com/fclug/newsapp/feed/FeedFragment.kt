@@ -2,12 +2,14 @@ package com.fclug.newsapp.feed
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 
 import com.fclug.newsapp.R
 import com.fclug.newsapp.adapter.NewsAdapter
+import com.fclug.newsapp.databinding.FragmentFeedBinding
 import com.fclug.newsapp.model.Article
 import com.fclug.newsapp.util.ARTICLE_ARGUMENT
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -26,7 +28,9 @@ class FeedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_feed, container, false)
+        val binding: FragmentFeedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
